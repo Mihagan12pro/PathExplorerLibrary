@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace PathExplorerLibrary
 {
-    public class Class1
+    public class Explorer
     {
+        public Explorer()
+        {
+            
+        }
+    }
+
+    public sealed class FilePath
+    {
+
     }
 }
