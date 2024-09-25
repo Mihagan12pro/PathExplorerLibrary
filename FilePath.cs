@@ -17,26 +17,58 @@ namespace PathExplorerLibrary
 
         public readonly string ProjectFolder;
 
-       // public string B;
+        protected List<DirectoryInfo> directories = new List<DirectoryInfo>();
+        protected List<FileInfo>files = new List<FileInfo>();
 
-        private string path;
+       // public string B;
+       
+        public int Size 
+        { 
+            get
+            {
+                return directories.Count;
+            }
+        }
+
+        protected string path;
         public string Path
         {
             get
             {
-                if (!File.Exists(path))
-                {
-                    //DirectoryInfo projectDirectory = new DirectoryInfo(ProjectDir);
-
-                   
-                }
-
-
+               
                 return path;
             }
-            private set
+            protected set
             {
                 path = value;
+            }
+        }
+
+        
+        protected void GetDirectories(string dir)
+        {
+         
+            DirectoryInfo directory = new DirectoryInfo(dir);
+
+            directories.Add(directory);
+
+            foreach (var subDir in directory.GetDirectories())
+            {
+                GetDirectories(subDir.FullName);
+            }
+        }
+       
+        protected void GetFiles()
+        {
+            if (directories.Count > 0)
+            {
+                foreach(var dir in directories)
+                {
+                    foreach(var file in dir.GetFiles())
+                    {
+                        files.Add(file);
+                    }
+                }    
             }
         }
 
@@ -44,7 +76,7 @@ namespace PathExplorerLibrary
         {
 
             Process currentProcess = Process.GetCurrentProcess();
-
+         
          
 
 
@@ -58,6 +90,28 @@ namespace PathExplorerLibrary
 
             ProjectFolder = new DirectoryInfo( directoryBin.Parent.FullName).FullName;
 
+            
+            if (new FileInfo(FileName).Exists == false)
+            {
+                GetDirectories(ProjectFolder);
+
+                GetFiles();
+              
+
+                foreach(var file in files)
+                {
+                    if (file.Name == FileName)
+                    {
+                        Path = file.FullName;
+                       
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                Path = new FileInfo(FileName).FullName;
+            }
  
         }
     }
