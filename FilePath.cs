@@ -113,6 +113,10 @@ namespace PathExplorerLibrary
                 Path = new FileInfo(FileName).FullName;
             }
  
+            if (Path == null)
+            {
+                throw new Exception("The file was not found!");
+            }
         }
     }
 }
