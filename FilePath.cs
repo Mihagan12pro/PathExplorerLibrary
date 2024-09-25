@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using ReflactionNamespace = System.Reflection;
 using System.IO;
+using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
 namespace PathExplorerLibrary
 {
 
@@ -12,10 +14,10 @@ namespace PathExplorerLibrary
     {
         public readonly string FileName;
 
-        public readonly string ProjectName;
 
-        public readonly string ProjectDir;
+        public readonly string ProjectFolder;
 
+       // public string B;
 
         private string path;
         public string Path
@@ -24,9 +26,9 @@ namespace PathExplorerLibrary
             {
                 if (!File.Exists(path))
                 {
-                    DirectoryInfo projectDirectory = new DirectoryInfo(ProjectDir);
+                    //DirectoryInfo projectDirectory = new DirectoryInfo(ProjectDir);
 
-
+                   
                 }
 
 
@@ -38,20 +40,25 @@ namespace PathExplorerLibrary
             }
         }
 
-        public FilePath(string FileName, string ProjectName)
+        public FilePath(string FileName)
         {
+
+            Process currentProcess = Process.GetCurrentProcess();
+
+         
+
+
             this.FileName = FileName;
-            this.ProjectName = ProjectName;
 
-            string projectExe = new FileInfo(ProjectName).FullName;
-
-
-            DirectoryInfo debugDir = new DirectoryInfo(projectExe.Replace(ProjectName, ""));
-
-            DirectoryInfo binDir = new DirectoryInfo(debugDir.Parent.FullName);
+            FileInfo fileEXE = new FileInfo(currentProcess.ProcessName+".exe");
+            
+            DirectoryInfo directoryBin = new DirectoryInfo(new DirectoryInfo( fileEXE.DirectoryName).Parent.FullName);
 
 
-            ProjectDir = new DirectoryInfo(binDir.Parent.FullName).FullName;
+
+            ProjectFolder = new DirectoryInfo( directoryBin.Parent.FullName).FullName;
+
+ 
         }
     }
 }
