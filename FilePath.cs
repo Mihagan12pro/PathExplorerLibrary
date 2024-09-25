@@ -96,15 +96,23 @@ namespace PathExplorerLibrary
                 GetDirectories(ProjectFolder);
 
                 GetFiles();
-              
+
+                int countOfFiles = 0;
 
                 foreach(var file in files)
                 {
                     if (file.Name == FileName)
                     {
                         Path = file.FullName;
+
+                        countOfFiles++;
+
+                        if (countOfFiles > 1)
+                        {
+                            throw new Exception("Two files with the same name were found");
+                        }
+
                        
-                        break;
                     }
                 }
             }
