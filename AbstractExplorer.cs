@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using PathExplorerLibrary;
 namespace PathExplorerLibrary
 {
-    public class Explorer
+    public abstract class AbstractExplorer
     {
-        public Explorer(FilePath filePath)
+        public AbstractExplorer(FilePath filePath)
         {
             
         }
