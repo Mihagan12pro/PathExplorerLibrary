@@ -7,12 +7,15 @@ using ReflactionNamespace = System.Reflection;
 using System.IO;
 using static System.Net.Mime.MediaTypeNames;
 using System.Diagnostics;
+using System.CodeDom;
+using System.Data;
 namespace PathExplorerLibrary
 {
 
     public class FilePath
     {
         public readonly string FileName;
+        public readonly string FolderName;
 
 
         public readonly string ProjectFolder;
@@ -20,8 +23,11 @@ namespace PathExplorerLibrary
         protected List<DirectoryInfo> directories = new List<DirectoryInfo>();
         protected List<FileInfo>files = new List<FileInfo>();
 
+        protected readonly string folderPath;
+
+
        // public string B;
-       
+
         public int Size 
         { 
             get
@@ -72,13 +78,75 @@ namespace PathExplorerLibrary
             }
         }
 
+        public FilePath(string FileName,string FolderName)
+        {
+            Process currentProcess = Process.GetCurrentProcess();
+
+
+
+
+            this.FileName = FileName;
+            this.FolderName = FolderName;
+
+            FileInfo fileEXE = new FileInfo(currentProcess.ProcessName + ".exe");
+
+            DirectoryInfo directoryBin = new DirectoryInfo(new DirectoryInfo(fileEXE.DirectoryName).Parent.FullName);
+
+
+
+            ProjectFolder = new DirectoryInfo(directoryBin.Parent.FullName).FullName;
+
+
+            if (new DirectoryInfo(FolderName).Exists)
+            {
+                folderPath = new DirectoryInfo(FolderName).FullName;
+
+                if (new FileInfo(folderPath + "\\"+FileName).Exists == false)
+                {
+                    throw new Exception("The file does not found!");
+                }
+
+                Path = folderPath + "\\" + FileName;
+            }
+            else
+            {
+                GetDirectories(ProjectFolder);
+
+                GetFiles();
+
+                foreach(var dir in directories)
+                {
+                    if (dir.Name == FolderName)
+                    {
+                        folderPath = dir.FullName;
+                        break;
+                    }
+                }
+
+                if (folderPath == null)
+                    throw new Exception("The folder was not found!");
+
+                foreach(var file in new DirectoryInfo(folderPath).GetFiles())
+                {
+                    if (file.Name == FileName)
+                    {
+                        Path = file.FullName;
+
+                        break;
+                    }
+                }
+
+                if (Path == null)
+                    throw new Exception("The file was not found!");
+            }
+        }
         public FilePath(string FileName)
         {
 
             Process currentProcess = Process.GetCurrentProcess();
          
          
-
+            
 
             this.FileName = FileName;
 
@@ -104,7 +172,7 @@ namespace PathExplorerLibrary
                     if (file.Name == FileName)
                     {
                         Path = file.FullName;
-
+                     
                         countOfFiles++;
 
                         if (countOfFiles > 1)
@@ -119,6 +187,7 @@ namespace PathExplorerLibrary
             else
             {
                 Path = new FileInfo(FileName).FullName;
+               
             }
  
             if (Path == null)
