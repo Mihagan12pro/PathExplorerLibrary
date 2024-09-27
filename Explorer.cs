@@ -9,7 +9,7 @@ namespace PathExplorerLibrary
 {
     public abstract class AbstractExplorer
     {
-        protected readonly Exception dublicateError = new Exception("Two objects that work with one file's path were found!");
+        protected readonly Exception eDublicateObjects = new Exception("Two objects that work with one file's path were found!");
         public AbstractExplorer(FilePath filePath)
         {
             
@@ -26,7 +26,7 @@ namespace PathExplorerLibrary
 
             if (filePath1.Path == filePath2.Path)
             {
-                throw dublicateError;
+                throw eDublicateObjects;
             }
         }
     }
