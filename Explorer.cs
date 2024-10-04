@@ -12,6 +12,7 @@ namespace PathExplorerLibrary
         protected readonly List<PathMaster> pathMasters;
         protected readonly Exception eDublicateObjects = new Exception("Two objects that work with one file's path were found!");
 
+
         protected abstract void UniquePaths();
         public AbstractExplorer(PathMaster filePath)
         {
@@ -27,7 +28,10 @@ namespace PathExplorerLibrary
             var filePaths = from filePath in pathMasters where filePath.FilePath!= null select filePath.FilePath;
 
 
-            
+            if (filePaths.Count() != pathMasters.Count)
+            {
+                throw eDublicateObjects;
+            }
         }
 
 

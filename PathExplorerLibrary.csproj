@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DllExceptions.cs" />
     <Compile Include="Explorer.cs" />
     <Compile Include="PathMaster.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
