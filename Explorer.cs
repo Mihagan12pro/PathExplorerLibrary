@@ -27,7 +27,7 @@ namespace PathExplorerLibrary
             var filePaths = from filePath in pathMasters where filePath.FilePath!= null select filePath.FilePath;
 
 
-            if (file)
+            
         }
 
 

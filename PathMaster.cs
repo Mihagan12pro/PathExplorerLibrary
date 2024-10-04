@@ -28,9 +28,7 @@ namespace PathExplorerLibrary
         protected string folderPath;
 
 
-        protected readonly Exception eFileNotFound = new Exception("The file was not found!");
-        protected readonly Exception eFolderNotFound = new Exception("The folder was not found!");
-        protected readonly Exception eDublicateFiles = new Exception("Two files with the same name were found");
+       
 
        // public string B;
 
@@ -102,7 +100,7 @@ namespace PathExplorerLibrary
                     DirectoryInfo ourDir = (from dir in directories where dir.Name == name select dir).First();
 
                     if (ourDir == null)
-                        throw eFolderNotFound;
+                        throw  DllExceptions.eFolderNotFound;
 
                     folderPath = ourDir.FullName;
                 }
@@ -114,10 +112,10 @@ namespace PathExplorerLibrary
                     var fileCollection = from file in files where file.Name == name select file;
 
                     if (fileCollection.Count() == 0 || fileCollection == null)
-                        throw eFileNotFound;
+                        throw DllExceptions.eFileNotFound;
 
                     if (fileCollection.Count() > 1)
-                        throw eDublicateFiles;
+                        throw DllExceptions.eDublicateFiles;
 
                     FilePath = fileCollection.First().FullName;
 
