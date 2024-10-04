@@ -24,7 +24,7 @@ namespace PathExplorerLibrary
             this.filePath1 = filePath1;
             this.filePath2 = filePath2;
 
-            if (filePath1.Path == filePath2.Path)
+            if (filePath1.FilePath == filePath2.FilePath)
             {
                 throw eDublicateObjects;
             }

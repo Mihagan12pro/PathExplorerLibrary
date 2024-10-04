@@ -15,6 +15,7 @@ namespace PathExplorerLibrary
 
     public class PathMaster
     {
+     
         public readonly string FileName;
         public readonly string FolderName;
 
@@ -50,17 +51,17 @@ namespace PathExplorerLibrary
         }
 
 
-        protected string path;
-        public string Path
+        protected string filePath;
+        public string FilePath
         {
             get
             {
                
-                return path;
+                return filePath;
             }
             protected set
             {
-                path = value;
+                filePath = value;
             }
         }
 
@@ -118,15 +119,20 @@ namespace PathExplorerLibrary
                     if (fileCollection.Count() > 1)
                         throw eDublicateFiles;
 
-                    Path = fileCollection.First().FullName;
-                    
+                    FilePath = fileCollection.First().FullName;
+
+
+                    folderPath =   System.IO.Path.GetDirectoryName(FilePath);
 
 
                     
-                    
 
-                   
+
                 }
+                else
+                
+                    FilePath = folderPath + $"\\{name}";
+                
             }
             //if (name == FolderName)
             //{
@@ -178,10 +184,9 @@ namespace PathExplorerLibrary
 
 
             this.FileName = _FileName;
-            if (this.FolderName == "")
+            if (_FolderName != "")
                 this.FolderName = _FolderName;
-            else
-                this.FolderName = null;
+           
 
             
             FileInfo fileEXE = new FileInfo(currentProcess.ProcessName + ".exe");
@@ -198,6 +203,9 @@ namespace PathExplorerLibrary
 
             SetFullPath(this.FolderName);
             SetFullPath(this.FileName);
+
+            if (FolderName == null)
+                FolderName = new DirectoryInfo(folderPath).Name;
 
             //    FileInfo fileEXE = new FileInfo(currentProcess.ProcessName + ".exe");
 
