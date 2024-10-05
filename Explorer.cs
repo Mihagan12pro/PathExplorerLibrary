@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,10 +26,30 @@ namespace PathExplorerLibrary
         public readonly PathMaster filePath1,filePath2;
         protected override void UniquePaths()
         {
-            var filePaths = from filePath in pathMasters where filePath.FilePath!= null select filePath.FilePath;
+            //var filePaths = from filePath in pathMasters  select filePath.FilePath;
+
+            //var a = filePaths.Count();
+            //var b = a;
 
 
-            if (filePaths.Count() != pathMasters.Count)
+            //if (filePaths.Count() != pathMasters.Count)
+            //{
+            //    throw eDublicateObjects;
+            //}
+            //ObservableCollection<string> collection = new ObservableCollection<string>();
+            
+            //foreach(var master in pathMasters)
+            //{
+            //    collection.Add(master.FilePath);
+            //}
+            HashSet<string> collection = new HashSet<string>();
+
+            foreach(var master in pathMasters)
+            {
+                collection.Add(master.FilePath);
+            }
+
+            if (collection.Count() != pathMasters.Count)
             {
                 throw eDublicateObjects;
             }
@@ -44,10 +65,7 @@ namespace PathExplorerLibrary
             pathMasters.Add(filePath1);
             pathMasters.Add(filePath2);
 
-            //if (filePath1.FilePath == filePath2.FilePath)
-            //{
-            //    throw eDublicateObjects;
-            //}
+            UniquePaths();
         }
     }
 }
