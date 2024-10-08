@@ -123,57 +123,13 @@ namespace PathExplorerLibrary
 
 
                     folderPath =   System.IO.Path.GetDirectoryName(FilePath);
-
-
-                    
-
-
                 }
                 else
                 
                     FilePath = folderPath + $"\\{name}";
                 
             }
-            //if (name == FolderName)
-            //{
-            //    if (name != null)
 
-            //    {
-            //        folderPath = (from dir in directories where dir.FullName.EndsWith(name) select dir.FullName).FirstOrDefault<string>();
-
-            //        if (folderPath == null)
-            //            throw eFileNotFound;
-            //    }
-            //}
-
-            //else 
-            //{
-            //    if (FolderName != null)
-            //    {
-            //        Path = folderPath + "\\"+FileName;
-
-            //        if (!File.Exists(Path))
-            //            throw eFileNotFound;
-                   
-            //        return;
-            //    }
-            //    else
-            //    {
-            //        var filePathCollection = from  file in files where file.FullName.EndsWith(name) select file;
-
-            //        if (filePathCollection == null)
-            //            throw eFileNotFound;
-            //        if (filePathCollection.Count() > 1)
-            //            throw eDublicateFiles;
-            //        if (filePathCollection.FirstOrDefault()==null)
-            //            throw eFileNotFound;
-            //        Path = filePathCollection.FirstOrDefault().FullName;
-
-            //        if (Path == null)
-            //            throw eFileNotFound;
-                    
-            //    }
-            //}
         }
 
         public PathMaster(string _FileName,string _FolderName)
@@ -207,57 +163,6 @@ namespace PathExplorerLibrary
             if (FolderName == null)
                 FolderName = new DirectoryInfo(folderPath).Name;
 
-            //    FileInfo fileEXE = new FileInfo(currentProcess.ProcessName + ".exe");
-
-            //    DirectoryInfo directoryBin = new DirectoryInfo(new DirectoryInfo(fileEXE.DirectoryName).Parent.FullName);
-
-
-
-            //    ProjectFolder = new DirectoryInfo(directoryBin.Parent.FullName).FullName;
-
-
-            //    if (new DirectoryInfo(FolderName).Exists)
-            //    {
-            //        folderPath = new DirectoryInfo(FolderName).FullName;
-
-            //        if (new FileInfo(folderPath + "\\"+FileName).Exists == false)
-            //        {
-            //            throw eFileNotFound;
-            //        }
-
-            //        Path = folderPath + "\\" + FileName;
-            //    }
-            //    else
-            //    {
-            //        GetDirectories(ProjectFolder);
-
-            //        GetFiles();
-
-            //        foreach(var dir in directories)
-            //        {
-            //            if (dir.Name == FolderName)
-            //            {
-            //                folderPath = dir.FullName;
-
-            //            }
-            //        }
-
-            //        if (folderPath == null)
-            //            throw eFolderNotFound;
-
-            //        foreach(var file in new DirectoryInfo(folderPath).GetFiles())
-            //        {
-            //            if (file.Name == FileName)
-            //            {
-            //                Path = file.FullName;
-
-            //                break;
-            //            }
-            //        }
-
-            //        if (Path == null)
-            //            throw eFileNotFound;
-            //    }
         }
 
     }

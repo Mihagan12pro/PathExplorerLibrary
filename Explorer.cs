@@ -14,7 +14,14 @@ namespace PathExplorerLibrary
         protected readonly Exception eDublicateObjects = new Exception("Two objects that work with one file's path were found!");
 
 
-        protected abstract void UniquePaths();
+        protected virtual void UniquePaths()
+        {
+            var collection = (from master in pathMasters select master.FilePath).Distinct();
+
+
+            if (collection.Count() != pathMasters.Count())
+                throw eDublicateObjects;
+        }
         public AbstractExplorer(PathMaster filePath)
         {
             pathMasters = new List<PathMaster>();
@@ -24,36 +31,10 @@ namespace PathExplorerLibrary
     public class Example : AbstractExplorer
     {
         public readonly PathMaster filePath1,filePath2;
-        protected override void UniquePaths()
-        {
-            //var filePaths = from filePath in pathMasters  select filePath.FilePath;
-
-            //var a = filePaths.Count();
-            //var b = a;
-
-
-            //if (filePaths.Count() != pathMasters.Count)
-            //{
-            //    throw eDublicateObjects;
-            //}
-            //ObservableCollection<string> collection = new ObservableCollection<string>();
-            
-            //foreach(var master in pathMasters)
-            //{
-            //    collection.Add(master.FilePath);
-            //}
-            HashSet<string> collection = new HashSet<string>();
-
-            foreach(var master in pathMasters)
-            {
-                collection.Add(master.FilePath);
-            }
-
-            if (collection.Count() != pathMasters.Count)
-            {
-                throw eDublicateObjects;
-            }
-        }
+        //protected override void UniquePaths()
+        //{
+        //    base.UniquePaths();
+        //}
 
 
         public Example(PathMaster filePath1,PathMaster filePath2) : base(filePath1)
